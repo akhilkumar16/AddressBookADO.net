@@ -14,6 +14,8 @@ namespace AddressBookADO.net
             addressBookManagement.GetAllContact();
             //UC3
             AddNewContactDetails();
+            //UC4                                                      
+            Console.WriteLine(addressBookManagement.EditContactUsingName("1234562", "rohit", "mumbai") ? "Update Record successfully\n" : "Update failed");
         }
 
         /* UC3:- Ability to insert new Contacts to Address Book */
