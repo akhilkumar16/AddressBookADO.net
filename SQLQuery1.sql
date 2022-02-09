@@ -11,3 +11,6 @@ AddressBookType varchar(50),
 AddressBookName varchar(50) 
 );
 select * from AddressBookSystem;
+--insert record into table
+insert into AddressBookSystem values('virat','kholi','banglore','vbsng','kt','123456','124563289','virat@gmail.com','Family','FamilyBook');
+select * from AddressBookSystem;
