@@ -83,7 +83,7 @@ namespace AddressBookADO.net
 
             finally
             {
-                connection.Close(); // Always ensuring the closing of the connection
+                connection.Close();
             }
         }
         /* UC3:- Ability to insert new Contacts to Address Book 
@@ -111,7 +111,7 @@ namespace AddressBookADO.net
                     var result = command.ExecuteNonQuery();
                     connection.Close();
 
-                    if (result != 0)  //Return the result of the transaction 
+                    if (result != 0)  
                     {
                         return true;
                     }
@@ -162,6 +162,38 @@ namespace AddressBookADO.net
                 connection.Close();
             }
         }
+        /* UC5:- Ability to Delete contact person using their name
+        */
+        public bool DeleteContactUsingName(string FirstName, string LastName)
+        {
+            try
+            {
+                using (connection)
+                {
+                    connection.Open();
+                    string query = "delete from Address.AddressBookSystem where FirstName = @parameter1 and LastName =@parameter2";
+                    SqlCommand command = new SqlCommand(query, connection);
 
+                    command.Parameters.AddWithValue("@parameter1", FirstName);
+                    command.Parameters.AddWithValue("@parameter2", LastName);
+
+                    var result = command.ExecuteNonQuery(); 
+                    connection.Close();
+                    if (result > 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
