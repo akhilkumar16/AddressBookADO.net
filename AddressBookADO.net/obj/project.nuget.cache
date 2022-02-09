@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Q7zKN2Ge7QoR9gouNpSr9yle4r4v5Y9ZV4eFbu2RF/DSGSA99CkbUPVvlbrwl2FnCaLzZONRBX7b05ENa8LVcQ==",
+  "dgSpecHash": "CBOQBoiRIWmYzm80AmrsIGkp1BtnejJA2KQH4VJbTC8m8TRMDgDr4Iky3OrIuDWGthCfE5aftfRf4avlky97bQ==",
   "success": true,
   "projectFilePath": "E:\\Bridgelabz\\AddressBookADO.net\\AddressBookADO.net\\AddressBookADO.net.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Kranthi\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\4.0.0\\microsoft.data.sqlclient.sni.runtime.4.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
