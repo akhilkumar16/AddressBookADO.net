@@ -94,7 +94,7 @@ namespace AddressBookADO.net
             {
                 using (connection) // Using the connection established
                 {
-                    SqlCommand command = new SqlCommand("dbo.AddressBookSystemProcedure", connection); // Implementing the stored procedure
+                    SqlCommand command = new SqlCommand("Address.AddressBookSystemProcedure", connection); // Implementing the stored procedure
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@FirstName", model.FirstName);
                     command.Parameters.AddWithValue("@LastName", model.LastName);
@@ -127,6 +127,41 @@ namespace AddressBookADO.net
                 connection.Close();
             }
         }
+        /* UC4:- Ability to edit existing contact person using their name
+         */
+
+        public bool EditContactUsingName(string Zip, string FirstName, string LastName)
+        {
+
+            try
+            {
+                using (connection)
+                {
+                    connection.Open();
+                    string query = @"update Address.AddressBookSystem set Zip = @parameter1
+                    where FirstName = @parameter2 and LastName = @parameter3";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@parameter1", Zip);
+                    command.Parameters.AddWithValue("@parameter2", FirstName);
+                    command.Parameters.AddWithValue("@parameter3", LastName);
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+                    if (result > 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
     }
 }
-    
