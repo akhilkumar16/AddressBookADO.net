@@ -208,7 +208,7 @@ namespace AddressBookADO.net
             {
                 using (connection)
                 {
-                    string query = $@"select * from dbo.AddressBookSystem where State='{state}' or City='{city}'";
+                    string query = $@"select * from Address.AddressBookSystem where State='{state}' or City='{city}'";
                     
                     SqlCommand command = new SqlCommand(query, connection);
                     connection.Open();     
@@ -239,6 +239,72 @@ namespace AddressBookADO.net
                     reader.Close();
                 }
             }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        /*UC7:- Ability to understand the size of address book by City and State.
+      */
+        public void CountByCityOrState()
+        {
+            Console.WriteLine("Enter the choice you want to retrieve Record");
+            Console.WriteLine("1.City.");
+            Console.WriteLine("2.State.");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter the City or State by which you want the Record:-");
+            string cityOrState = Console.ReadLine();
+            GetCountOfCityOrState(cityOrState, choice);
+        }
+        public void GetCountOfCityOrState(string newData, int choice)
+        {
+
+            string query = "";
+            try
+            {
+                using (connection)
+                {
+                    if (choice == 1)
+                    {
+                        query = @"select Count(FirstName) from Address.AddressBookSystem
+                                   where City=@parameter group by City";
+                    }
+                    else if (choice == 2)
+                    {
+
+                        query = @"select Count(firstName) from Address.AddressBookSystem where State=@parameter group by StateName";
+                    }
+                    else
+                    {
+                        Console.WriteLine("Wrong Choice....");
+                    }
+
+                    SqlCommand command = new SqlCommand(query, connection);
+
+                    command.Parameters.AddWithValue("@parameter", newData);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            int count = reader.GetInt32(0);
+                            Console.WriteLine($"Number of Contacts Stored in {newData} = {count}");
+                            Console.WriteLine("\n");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Record found");
+                    }
+                    reader.Close();
+                }
+            }
+
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
